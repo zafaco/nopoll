@@ -3319,8 +3319,6 @@ noPollMsg   * nopoll_conn_get_msg (noPollConn * conn)
 
 	if (msg->op_code == NOPOLL_PONG_FRAME) {
 		nopoll_log (conn->ctx, NOPOLL_LEVEL_DEBUG, "PONG received over connection id=%d", conn->id);
-		nopoll_msg_unref (msg);
-		return NULL;
 	} /* end if */
 
 	if (msg->op_code == NOPOLL_CLOSE_FRAME) {
