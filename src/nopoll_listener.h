@@ -88,7 +88,8 @@ nopoll_bool       nopoll_listener_set_certificate (noPollConn * listener,
 						   const char * chain_file);
 
 noPollConn      * nopoll_listener_from_socket (noPollCtx      * ctx,
-					       NOPOLL_SOCKET    session);
+					       NOPOLL_SOCKET    session,
+                                               nopoll_bool      tlsSocket);
 
 NOPOLL_SOCKET     nopoll_listener_accept (NOPOLL_SOCKET server_socket);
 

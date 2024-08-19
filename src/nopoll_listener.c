@@ -539,7 +539,8 @@ nopoll_bool           nopoll_listener_set_certificate (noPollConn * listener,
  * fails.
  */
 noPollConn   * nopoll_listener_from_socket (noPollCtx      * ctx,
-					    NOPOLL_SOCKET    session)
+					    NOPOLL_SOCKET    session,
+                                            nopoll_bool      tlsSocket)
 {
 	noPollConn         * listener;
 	struct sockaddr_in   sin;
@@ -588,6 +589,11 @@ noPollConn   * nopoll_listener_from_socket (noPollCtx      * ctx,
 	} /* end if */
 
 	nopoll_log (ctx, NOPOLL_LEVEL_DEBUG, "Listener created, started: %s:%s (socket: %d)", listener->host, listener->port, listener->session);
+
+        listener->tls_on                = tlsSocket;
+        noPollConnOpts * opts           = nopoll_conn_opts_new();
+        listener->opts                  = opts;
+        listener->opts->ssl_protocol    = NOPOLL_METHOD_TLSV1_2;
 
 	/* reduce reference counting here because ctx_register_conn
 	 * already acquired a reference */

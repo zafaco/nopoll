@@ -148,6 +148,8 @@ const char  * nopoll_conn_get_origin (noPollConn * conn);
 
 const char  * nopoll_conn_get_host_header (noPollConn * conn);
 
+struct http_header * nopoll_conn_get_http_header (noPollConn * conn);
+
 const char  * nopoll_conn_get_cookie (noPollConn * conn);
 
 const char  * nopoll_conn_get_accepted_protocol (noPollConn * conn);
@@ -229,6 +231,11 @@ void               nopoll_conn_connect_timeout (noPollCtx * ctx,
 						long        microseconds_to_wait);
 
 long               nopoll_conn_get_connect_timeout (noPollCtx * ctx);
+
+void nopoll_conn_set_http_on (noPollConn * conn, nopoll_bool http_on);
+
+nopoll_bool nopoll_conn_get_http_on (noPollConn * conn);
+
 
 /** internal api **/
 void nopoll_conn_complete_handshake (noPollConn * conn);

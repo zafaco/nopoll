@@ -165,6 +165,14 @@ void            nopoll_log_set_handler (noPollCtx * ctx, noPollLogHandler handle
  */
 void __nopoll_log (noPollCtx * ctx, const char * function_name, const char * file, int line, noPollDebugLevel level, const char * message, ...)
 {
+	if (level == NOPOLL_LEVEL_CRITICAL)
+    {
+        nopoll_loop_stop(ctx);
+    }
+
+	/* check if the log is enabled */
+	if (! nopoll_log_is_enabled (ctx))
+		return;
 
 #ifdef SHOW_DEBUG_LOG
 	va_list      args;
@@ -185,10 +193,6 @@ void __nopoll_log (noPollCtx * ctx, const char * function_name, const char * fil
 		nopoll_free (log_msg);
 		return;
 	}
-
-	/* check if the log is enabled */
-	if (! nopoll_log_is_enabled (ctx))
-		return;
 
 	/* printout the process pid */
 	if (nopoll_log_color_is_enabled (ctx)) 

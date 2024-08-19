@@ -563,6 +563,14 @@ noPollPtr  nopoll_realloc (noPollPtr ref, size_t size);
 
 void       nopoll_free    (noPollPtr ref);
 
+struct http_header
+{
+	char *key;
+	char *value;
+	struct http_header *next;
+};
+
+
 END_C_DECLS
 
 #endif

@@ -107,6 +107,12 @@ struct _noPollCtx {
 	noPollPtr           on_accept_data;
 
 	/** 
+	 * @internal Reference to defined on reject handling.
+	 */
+	noPollActionHandler on_reject;
+	noPollPtr           on_reject_data;
+
+	/** 
 	 * @internal Reference to defined on ready handling.
 	 */
 	noPollActionHandler on_ready;
@@ -216,6 +222,11 @@ struct _noPollConn {
 	char           * get_url;
 	
 	/** 
+	 * @internal copy of the http header.
+	 */
+	struct http_header *http_header_values;
+			
+	/** 
 	 * @internal Reference to protocols requested to be opened on
 	 * this connection.
 	 */
@@ -262,6 +273,11 @@ struct _noPollConn {
 	noPollMsg   * pending_msg;
 	long int      pending_diff;
 	long int      pending_desp;
+
+	/** 
+	 * @internal Flag to indicate plain http usage instead of websockets.
+	 */
+	nopoll_bool   http_on;
 
 	/** 
 	 * @internal Flag to handle TLS support upon connection
@@ -411,6 +427,10 @@ struct _noPollConnOpts {
 
 	/* extra HTTP headers to send during the connection */
 	char * extra_headers;
+
+	/* control whether origin header is added or not (see
+	 * nopoll_conn_opts_add_origin_header) */
+	nopoll_bool add_origin_header;
 };
 
 #endif
